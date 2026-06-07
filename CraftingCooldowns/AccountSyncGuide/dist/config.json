@@ -1,0 +1,10 @@
+{
+    "wow_executable": "C:/WoW/WoW.exe",
+    "savedvariables_paths": [
+        "C:/WoW/WTF/Account/ACCOUNT1/SavedVariables/CraftingCooldowns.lua",
+        "C:/WoW/WTF/Account/ACCOUNT2/SavedVariables/CraftingCooldowns.lua"
+    ],
+    "addon_db_key": "CraftingCooldownsDB",
+    "launch_wow": true,
+    "backup_before_merge": true
+}
