@@ -21,10 +21,11 @@ A World of Warcraft addon for **Project Epoch** (WotLK 3.3.5a) that tracks craft
 | Profession | Cooldown | Type |
 |---|---|---|
 | Tailoring | Mooncloth | Spell |
+| Tailoring | Mooncloth BRD Ring | Item |
 | Leatherworking | Salt Shaker | Item |
-| Leatherworking | Trinket CD | Item |
+| Leatherworking | Masterwork Saltshaker | Item |
 | Alchemy | Arcanite Transmute | Spell |
-| Alchemy | Alchemy Item | Item |
+| Alchemy | Arcanite UBRS Ring | Item |
 
 > Project Epoch uses custom item IDs for some Leatherworking cooldowns. These are already configured for the server — no manual setup needed.
 
@@ -32,20 +33,13 @@ A World of Warcraft addon for **Project Epoch** (WotLK 3.3.5a) that tracks craft
 
 ## Installation
 
-1. Download the latest release from the [Releases](https://github.com/Parsemonke/CraftingCooldowns/releases) page
-2. Extract the `CraftingCooldowns` folder
+1. Download the latest release from the ([Main](https://github.com/Parsemonke/CraftingCooldowns/archive/refs/heads/main.zip)) 
+2. Extract the `CraftingCooldowns-main` folder and rename to `CraftingCooldowns`.
 3. Place it in your addons directory:
    ```
    World of Warcraft/Interface/AddOns/CraftingCooldowns/
    ```
 4. Launch WoW and enable the addon in the character select screen
-
-**Required libraries** (include in the addon folder or install separately):
-- AceAddon-3.0
-- AceDB-3.0
-- AceEvent-3.0
-- AceTimer-3.0
-- AceConsole-3.0
 
 ---
 
@@ -69,7 +63,7 @@ When a tracked cooldown becomes ready while you are logged in, you will see a me
 [CraftingCooldowns] Mooncloth is ready on Mage!  [Don't remind me]
 ```
 
-Clicking **Don't remind me** suppresses the notification for the current cooldown cycle only. The next time that cooldown is used and expires, it will notify you again. Suppression is per-character — silencing one alt does not affect others.
+Clicking **Don't remind me** suppresses the notification for 1 hour. Suppression is per-character — silencing one alt does not affect others.
 
 ---
 
@@ -90,7 +84,7 @@ Each account will see all characters from both accounts in the cooldown UI on th
 
 ### Setup
 
-1. Download `CraftingSync` from the [Releases](https://github.com/Parsemonke/CraftingCooldowns/releases) page
+1. Open `AccountSyncGuide` Filder
 2. Place `CraftingSync.exe` and `config.json` anywhere on your PC
 3. Edit `config.json`:
 
@@ -132,7 +126,7 @@ The script installs all dependencies automatically and outputs `dist/CraftingSyn
 
 | Cooldown window | Chat notification |
 |---|---|
-| ![Window](screenshots/window.png) | ![Notification](screenshots/notification.png) |
+| ![Notification](screenshots/notification.png) |
 
 ---
 
