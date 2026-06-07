@@ -33,8 +33,8 @@ A World of Warcraft addon for **Project Epoch** (WotLK 3.3.5a) that tracks craft
 
 ## Installation
 
-1. Download the latest release from the ([Main](https://github.com/Parsemonke/CraftingCooldowns/archive/refs/heads/main.zip)) 
-2. Extract the `CraftingCooldowns-main` folder and rename to `CraftingCooldowns`.
+1. Download the latest release from the [Releases](https://github.com/Parsemonke/CraftingCooldowns/releases)
+2. Extract the `CraftingCooldowns` folder
 3. Place it in your addons directory:
    ```
    World of Warcraft/Interface/AddOns/CraftingCooldowns/
