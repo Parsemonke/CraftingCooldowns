@@ -2,7 +2,7 @@
 
 A World of Warcraft addon for **Project Epoch** (WotLK 3.3.5a) that tracks crafting profession cooldowns across all your characters in a single clean UI — so you never forget to craft your weekly Mooncloth or Arcanite Transmute again.
 
-![UI Preview](screenshots/preview.png)
+![UI Preview](screenshots/Preview.png)
 
 ---
 
