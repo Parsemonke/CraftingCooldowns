@@ -125,7 +125,7 @@ The script installs all dependencies automatically and outputs `dist/CraftingSyn
 ## Screenshots
 
 | Chat notification |
-|---|---|
+|---|
 | ![Notification](screenshots/notification.png) |
 
 ---
