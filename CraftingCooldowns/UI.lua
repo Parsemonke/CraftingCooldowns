@@ -84,21 +84,26 @@ function UI:RefreshDisplay()
         local tText = self:GetCooldownText(charKey, ns.ProfessionKeys.Alchemy, "transmuteArcanite")
         local aText = self:GetCooldownText(charKey, ns.ProfessionKeys.Alchemy, "alchemyItem")
 
-        -- Flag column as active if it's showing something other than an empty dash
-        if mText ~= "-" then activeColumns["mooncloth"] = true end
-        if sText ~= "-" then activeColumns["saltShaker"] = true end
-        if cText ~= "-" then activeColumns["customTrinket"] = true end
-        if tText ~= "-" then activeColumns["transmuteArcanite"] = true end
-        if aText ~= "-" then activeColumns["alchemyItem"] = true end
+        -- Skip characters that have no tracked cooldowns at all
+        if mText == "-" and sText == "-" and cText == "-" and tText == "-" and aText == "-" then
+            -- no relevant professions on this char — omit from the list
+        else
+            -- Flag column as active if it's showing something other than an empty dash
+            if mText ~= "-" then activeColumns["mooncloth"] = true end
+            if sText ~= "-" then activeColumns["saltShaker"] = true end
+            if cText ~= "-" then activeColumns["customTrinket"] = true end
+            if tText ~= "-" then activeColumns["transmuteArcanite"] = true end
+            if aText ~= "-" then activeColumns["alchemyItem"] = true end
 
-        table.insert(self.rows, {
-            character = displayName,
-            mooncloth = mText,
-            saltShaker = sText,
-            customTrinket = cText,
-            transmuteArcanite = tText,
-            alchemyItem = aText,
-        })
+            table.insert(self.rows, {
+                character = displayName,
+                mooncloth = mText,
+                saltShaker = sText,
+                customTrinket = cText,
+                transmuteArcanite = tText,
+                alchemyItem = aText,
+            })
+        end
     end
 
     table.sort(self.rows, function(a, b) return a.character < b.character end)
