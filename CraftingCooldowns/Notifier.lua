@@ -100,6 +100,15 @@ end
 function Notifier:Snooze(charKey, profKey, cooldownKey)
     local nKey = NotifyKey(charKey, profKey, cooldownKey)
     snoozed[nKey] = time() + SNOOZE_SECONDS
+
+    -- Clear the "already fired" marker so the notification can re-fire once the
+    -- snooze expires. Without this, EvaluateRecord's lastFired == rec.expiresAt
+    -- guard would permanently suppress the re-notification.
+    local notified = Addon.db and Addon.db.global and Addon.db.global.notified
+    if notified then
+        notified[nKey] = nil
+    end
+
     local label    = GetLabel(profKey, cooldownKey)
     local charName = FormatCharName(charKey)
     DEFAULT_CHAT_FRAME:AddMessage(CHAT_PREFIX .. label .. " on " .. charName .. " snoozed for 1 hour.")
