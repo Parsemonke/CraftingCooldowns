@@ -116,7 +116,8 @@ end
 
 -- FIX 1: Only trigger a scan when the completed cast is one of
 --         our tracked crafting spells, ignoring all other casts.
-function CooldownScanner:OnSpellCastEvent(event, unit, _, spellId)
+-- 3.3.5 UNIT_SPELLCAST_SUCCEEDED signature: unit, spellName, rank, lineID, spellID
+function CooldownScanner:OnSpellCastEvent(event, unit, spellName, rank, lineID, spellId)
     if unit ~= "player" then return end
     if craftingSpellIdSet[spellId] then
         self:ScheduleScan("spellcast")
@@ -199,15 +200,15 @@ end
 -- ============================================================
 
 function CooldownScanner:GetSpellCooldownFromSpellbook(spellId)
-    local isKnown = IsSpellKnown(spellId)
+    -- IsSpellKnown() does not exist in WoW 3.3.5 (added in Cataclysm).
+    -- Determine whether the spell is known from GetSpellCooldown return values instead.
     local start, duration, enabled = GetSpellCooldown(spellId)
 
-    if not isKnown then
-        if start and start > 0 and duration and duration > 0 then
-            isKnown = true
-        elseif enabled == 1 then
-            isKnown = true
-        end
+    local isKnown = false
+    if start and start > 0 and duration and duration > 0 then
+        isKnown = true
+    elseif enabled == 1 then
+        isKnown = true
     end
 
     if not isKnown then
