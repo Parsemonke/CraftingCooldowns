@@ -22,7 +22,11 @@ end
 function Commands:HandleSlashCommand(input)
     input = input and input:trim():lower() or ""
 
-    if input == "scan" or input == "update" then
+    if input == "snooze" then
+        if Addon.Notifier and Addon.Notifier.SnoozeAll then
+            Addon.Notifier:SnoozeAll()
+        end
+    elseif input == "scan" or input == "update" then
         local scanner = Addon:GetModule("CooldownScanner", true)
         if scanner and scanner.EnableScanner then
             ---print("|cff33ff99CraftingCooldowns|r: Forces manual profession cooldown validation...")

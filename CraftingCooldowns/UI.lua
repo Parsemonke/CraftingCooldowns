@@ -266,7 +266,7 @@ function UI:CreateMainWindow()
 
     local scroll = CreateFrame("ScrollFrame", "CraftingCooldownsScrollFrame", frame, "UIPanelScrollFrameTemplate")
     scroll:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -6)
-    scroll:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -28, 10)
+    scroll:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -28, 34)
     self.scroll = scroll
 
     local content = CreateFrame("Frame", nil, scroll)
@@ -275,6 +275,18 @@ function UI:CreateMainWindow()
     content:SetHeight(1)
     scroll:SetScrollChild(content)
     self.content = content
+
+    -- Remind Me Later button
+    local snoozeBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    snoozeBtn:SetSize(140, 22)
+    snoozeBtn:SetPoint("BOTTOM", frame, "BOTTOM", 0, 8)
+    snoozeBtn:SetText("Remind Me Later")
+    snoozeBtn:SetScript("OnClick", function()
+        if Addon.Notifier and Addon.Notifier.SnoozeAll then
+            Addon.Notifier:SnoozeAll()
+        end
+    end)
+    self.snoozeBtn = snoozeBtn
 
     self:RestorePosition()
 
