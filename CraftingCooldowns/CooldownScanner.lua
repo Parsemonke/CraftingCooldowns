@@ -89,6 +89,8 @@ function CooldownScanner:EnableScanner()
     self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", "OnSpellCastEvent")
     self:RegisterEvent("BAG_UPDATE",               "OnBagUpdateEvent")
     self:RegisterEvent("BANKFRAME_OPENED",         "OnScannerBankOpened")
+    -- The 28 base bank slots (container -1) fire this instead of BAG_UPDATE
+    self:RegisterEvent("PLAYERBANKSLOTS_CHANGED",  "OnBankSlotsChanged")
 
     -- Periodic safety-net: catches on-use item cooldowns (trinkets, rings, etc.)
     -- that don't fire BAG_UPDATE and whose internal spell ID isn't in our set.
@@ -105,6 +107,7 @@ function CooldownScanner:DisableScanner()
     self:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
     self:UnregisterEvent("BAG_UPDATE")
     self:UnregisterEvent("BANKFRAME_OPENED")
+    self:UnregisterEvent("PLAYERBANKSLOTS_CHANGED")
 
     if self.scanHandle then
         self:CancelTimer(self.scanHandle)
@@ -147,12 +150,27 @@ end
 -- ScheduleScan collapses rapid bag-update bursts into a single scan.
 function CooldownScanner:OnBagUpdateEvent(event, ...)
     self.bagCacheDirty = true
+
+    -- If the bank is open, items may have just been moved into or out of it.
+    -- Re-snapshot the bank cache so deposits made AFTER BANKFRAME_OPENED are
+    -- remembered once the bank closes (otherwise the item drops off the list).
+    if BankFrame and BankFrame:IsShown() then
+        self:CacheBankItems()
+    end
+
     self:ScheduleScan("bagupdate")
 end
 
 function CooldownScanner:OnScannerBankOpened(event, ...)
     self:CacheBankItems()
     self:ScheduleScan("bank")
+end
+
+function CooldownScanner:OnBankSlotsChanged(event, ...)
+    if BankFrame and BankFrame:IsShown() then
+        self:CacheBankItems()
+    end
+    self:ScheduleScan("bankslot")
 end
 
 function CooldownScanner:OnPeriodicScan()
